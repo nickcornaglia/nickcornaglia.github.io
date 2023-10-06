@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Center the navigation both horizontally and vertically */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Style the navigation list */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        /* Style the navigation links */
+        li {
+            margin: 10px;
+        }
+
+        /* Set the same width for all links */
+        a {
+            display: block;
+            text-decoration: none;
+            font-family: Arial, sans-serif; /* Use a font of your choice */
+            background-color: #333;
+            color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Style the links on hover */
+        a:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a href="#">Twitter</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">YouTube</a></li>
+        <li><a href="#">kn1ckc</a></li>
+        <li><a href="#">Webcams</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+
+    <script>
+        // JavaScript to set font size based on desired width
+        const links = document.querySelectorAll('a');
+        const targetWidth = 150; // Desired width for links
+
+        links.forEach(link => {
+            let currentWidth = link.offsetWidth;
+            let currentFontSize = window.getComputedStyle(link).fontSize;
+
+            while (currentWidth < targetWidth) {
+                currentFontSize = parseFloat(currentFontSize);
+                link.style.fontSize = (currentFontSize + 1) + 'px';
+                currentWidth = link.offsetWidth;
+            }
+        });
+    </script>
+</body>
+</html>
