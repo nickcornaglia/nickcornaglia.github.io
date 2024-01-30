@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="google" content="notranslate" />
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=2.0">
 	<meta name="format-detection" content="telephone=yes">
 	<title>nickcornaglia.com</title>
 	<meta property="og:title" content="nickcornaglia.com" />
@@ -17,22 +17,25 @@
 <style>
 	body {
 	margin: 8px auto;
-	font-size: 14px;
+	font-size: 18px;
 	background-color: black;
 	color: white;
 	}
 	 
 	.center {
+	max-width: 480px;
 	text-align: center;
 	font-family: Courier, monospace;
-	font-weight: normal;
+	font-weight: bold;
 	line-height: 1.5;
 	display: inline-block;
 	vertical-align: top;
-	position: centered;
-	margin: auto;
-	width: 480px;
-	transform: translateX(-50%, -50%);
+	position: absolute;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+	left: 50%;
+	-ms-transform: translateX(-50%);
+	transform: translateX(-50%);
 	}
 
 	.center hr {
@@ -47,6 +50,7 @@
 		
 	.center a:hover {
 	font-family: Courier, monospace;
+	font-weight: bold;
 	text-decoration: none;
 	color: white;
 	}
