@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html translate="no">
+<html>
 <head>
 	<meta charset="utf-8">
 	<meta name="google" content="notranslate" />
@@ -14,21 +14,21 @@
 	<link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
 	<link rel="manifest" href="./images/site.webmanifest">
+
 <style>
-	body {
-	margin: 8px auto;
-	font-size: 13px;
+
+body {
+	margin: 20px auto;
 	background-color: black;
+	font-size: 13px;
+	font-weight: normal;
+	font-family: Courier, monospace;
 	color: white;
-	}
-	 
-	.center {
+}
+
+.center {
 	width: 100%;
 	max-width: 480px;
-	text-align: center;
-	font-family: Courier, monospace;
-	font-weight: bold;
-	line-height: 1.5;
 	display: inline-block;
 	vertical-align: top;
 	position: absolute;
@@ -37,53 +37,120 @@
 	left: 50%;
 	-ms-transform: translateX(-50%);
 	transform: translateX(-50%);
-	}
+}
 
-	.center hr {
+.center hr {
   	border-top: 1px dashed #ffffff;
 	border-bottom: 0px dashed #ffffff;
-	}
+}
 		
-	.center a {
+.center a {
 	font-family: Courier, monospace;
 	text-decoration: none;
 	color: green;
-	}
+}
 		
-	.center a:hover {
+.center a:hover {
 	font-family: Courier, monospace;
 	text-decoration: none;
 	color: white;
-	}
-		
-	.highlight {
+}
+
+.collapsible {
+	background-color: #000;
+	cursor: pointer;
+	padding: 3px;
+	width: 100%;
+	max-width: 480px;
+	border: 1px;
+	border-style: none none dashed none;
+	border-color: #ffffff;
+	text-align: left;
+	outline: none;
+	font-size: 13px;
+	font-weight: normal;
+	font-family: Courier, monospace;
 	color: green;
-	}
+
+}
+
+.active, .collapsible:hover {
+	background-color: black;
+	color: white;
+}
+
+.collapsible:after {
+	content: '\002B';
+	color: green;
+	font-weight: normal;
+	float: right;
+	margin-left: 5px;
+}
+
+.active:after {
+	content: "\2212";
+	color: white;
+}
+
+.content {
+	padding: 0px 10px 10px 10px;
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.2s ease-out;
+	background-color: #000;
+}
+
+.highlight {
+	color: green;
+}
+
 </style>
-	
+</head>
+
 <body>
-	<div class="center">
-	<hr>
-	<span>nickcornaglia<span class="highlight">.com</span>
-	<hr>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
-	<hr>
-	<span>links: <a href="https://twitter.com/nickcornaglia">twitter</a> - <a href="https://www.instagram.com/nickcornaglia/">instagram</a> - <a href="https://www.qrz.com/db/kn1ckc">kn1ckc</a></span>
-	<hr>
-        <span>webcams: <a href="#">webcam01</a> - <a href="#">webcam02</a>
-	<hr>
- 	<span>&copy;2024 nick cornaglia - <a href="mailto:nickcornaglia@gmail.com">contact</a></span>
-	</div>
+<div class="center">
+<span>nickcornaglia</span><span class="highlight">.</span><span>com</span>
+<hr>
+
+<button class="collapsible">about me</button>
+<div class="content">
+  <p>a bunch of stuff about me</p>
+</div>
+
+<button class="collapsible">links</button>
+<div class="content">
+  <p>my links:</br>
+  <a href="https://twitter.com/nickcornaglia">twitter</a> - <a href="https://www.instagram.com/nickcornaglia/">instagram</a> - <a href="https://www.qrz.com/db/kn1ckc">kn1ckc</a> - <a href="https://github.com/nickcornaglia">github</a></p>
+  <p>helpful links:</br>
+</div>
+
+<button class="collapsible">projects</button>
+<div class="content">
+  <p>a list of projects</p>
+</div>
+<div style="text-align:center; padding-top:5px;">
+<span class="highlight">&copy; </span><span>2024 nick cornaglia - <a href="mailto:nickcornaglia@gmail.com">contact</a></span>
+</div>
+</div>
+
+
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } 
+  });
+}
+</script>
+
 </body>
 </html>
