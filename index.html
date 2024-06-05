@@ -30,7 +30,7 @@
         }
         a {
             text-decoration: none;
-            color: #666666;
+            color: #aaaaaa;
             transition: all 0.5s ease-in-out; /* Smooth transition for all properties */
             position: absolute;
             font-size: 12px;
@@ -40,7 +40,7 @@
             color: #ff6600;
         }
         .center-text {
-            color: #666666;
+            color: #000000;
             font-size: 12px;
             font-weight: bold;
             position: absolute;
@@ -72,8 +72,8 @@
         function setInitialPositions() {
             const links = document.querySelectorAll('.links a');
             links.forEach((link, index) => {
-                let randomX = Math.random() * window.innerWidth * 0.8; // Adjusted to avoid links going off-screen
-                let randomY = Math.random() * window.innerHeight * 0.8; // Adjusted to avoid links going off-screen
+                let randomX = Math.random() * (window.innerWidth * 0.6) + (window.innerWidth * 0.2);
+                let randomY = Math.random() * (window.innerHeight * 0.6) + (window.innerHeight * 0.2);
                 for (let i = 0; i < index; i++) {
                     const otherLink = links[i];
                     const dx = randomX - parseFloat(otherLink.style.left || 0);
@@ -95,8 +95,8 @@
                 const links = document.querySelectorAll('.links a');
                 let allAtDestination = true;
                 links.forEach((link, index) => {
-                    const randomX = Math.random() * window.innerWidth * 0.8; // Adjusted to avoid links going off-screen
-                    const randomY = Math.random() * window.innerHeight * 0.8; // Adjusted to avoid links going off-screen
+                    const randomX = Math.random() * (window.innerWidth * 0.6) + (window.innerWidth * 0.2);
+                    const randomY = Math.random() * (window.innerHeight * 0.6) + (window.innerHeight * 0.2);
                     let newX = randomX;
                     let newY = randomY;
                     for (let i = 0; i < index; i++) {
@@ -126,7 +126,7 @@
 
         setInitialPositions(); // Set initial random positions when the page loads
 
-        setInterval(moveLinks, 3000); // Move links every 3 seconds
+        setInterval(moveLinks, 2000); // Move links every 2 seconds
 
         document.querySelectorAll('.links a').forEach(link => {
             link.addEventListener('mouseenter', () => {
