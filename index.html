@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nickcornaglia.com</title>
+    <style>
+        body {
+            background-color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .link-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .links {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        a {
+            text-decoration: none;
+            color: #666666;
+            transition: all 0.5s ease-in-out; /* Smooth transition for all properties */
+            position: absolute;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        a:hover {
+            color: #ff6600;
+        }
+        .center-text {
+            color: #666666;
+            font-size: 12px;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .center-text .orange {
+            color: #ff6600;
+        }
+    </style>
+</head>
+<body>
+    <div class="link-container">
+        <div class="center-text">
+            <span class="orange">nickcornaglia</span><span>.com</span>
+        </div>
+        <div class="links">
+            <a href="mailto:nickcornaglia@gmail.com">contact</a>
+            <a href="https://twitter.com/nickcornaglia" target="_blank">twitter x</a>
+            <a href="https://www.instagram.com/nickcornaglia/" target="_blank">instagram</a>
+            <a href="https://github.com/nickcornaglia" target="_blank">github</a>
+            <a href="https://www.qrz.com/db/KN1CKC" target="_blank">kn1ckc</a>
+        </div>
+    </div>
+    <script>
+        let isPaused = false;
+
+        function setInitialPositions() {
+            const links = document.querySelectorAll('.links a');
+            links.forEach((link, index) => {
+                let randomX = Math.random() * window.innerWidth * 0.8; // Adjusted to avoid links going off-screen
+                let randomY = Math.random() * window.innerHeight * 0.8; // Adjusted to avoid links going off-screen
+                for (let i = 0; i < index; i++) {
+                    const otherLink = links[i];
+                    const dx = randomX - parseFloat(otherLink.style.left || 0);
+                    const dy = randomY - parseFloat(otherLink.style.top || 0);
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 100) { // Minimum distance between links
+                        randomX += 100;
+                        randomY += 100;
+                        i = -1; // Restart loop to check against all previous links again
+                    }
+                }
+                link.style.left = randomX + 'px';
+                link.style.top = randomY + 'px';
+            });
+        }
+
+        function moveLinks() {
+            if (!isPaused) {
+                const links = document.querySelectorAll('.links a');
+                let allAtDestination = true;
+                links.forEach((link, index) => {
+                    const randomX = Math.random() * window.innerWidth * 0.8; // Adjusted to avoid links going off-screen
+                    const randomY = Math.random() * window.innerHeight * 0.8; // Adjusted to avoid links going off-screen
+                    let newX = randomX;
+                    let newY = randomY;
+                    for (let i = 0; i < index; i++) {
+                        const otherLink = links[i];
+                        const dx = newX - parseFloat(otherLink.style.left || 0);
+                        const dy = newY - parseFloat(otherLink.style.top || 0);
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < 100) { // Minimum distance between links
+                            newX += 100;
+                            newY += 100;
+                            i = -1; // Restart loop to check against all previous links again
+                        }
+                    }
+                    const currentX = parseFloat(link.style.left || 0);
+                    const currentY = parseFloat(link.style.top || 0);
+                    if (Math.abs(newX - currentX) > 1 || Math.abs(newY - currentY) > 1) {
+                        allAtDestination = false;
+                    }
+                    link.style.left = newX + 'px';
+                    link.style.top = newY + 'px';
+                });
+                if (allAtDestination) {
+                    isPaused = true;
+                }
+            }
+        }
+
+        setInitialPositions(); // Set initial random positions when the page loads
+
+        setInterval(moveLinks, 3000); // Move links every 3 seconds
+
+        document.querySelectorAll('.links a').forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                isPaused = true;
+            });
+            link.addEventListener('mouseleave', () => {
+                isPaused = false;
+            });
+        });
+    </script>
+</body>
+</html>
