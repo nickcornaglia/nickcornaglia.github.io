@@ -1,22 +1,27 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-<title>nick.cornaglia</title>
-<link rel="home" href="http://www.nickcornaglia.com/">
-<meta name="description" content="Do not click on this. You will be disappointed.">
-<meta name="keywords" content="Nick, Nicholas, Cornaglia, Structural, Design, Point of Purchase, Display, Designer, Packaging">
-<meta charset="utf-8">
-<style type="text/css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Do not click on this. You will be disappointed.">
+    <meta name="keywords" content="Nick, Nicholas, Cornaglia, Structural, Design, Point of Purchase, Display, Designer, Packaging">
+    <title>nick.cornaglia</title>
+    <link rel="home" href="http://www.nickcornaglia.com/">
+    <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
+    <link rel="manifest" href="./images/site.webmanifest">
+    <style>
         body {
             background-color: white;
             font-family: Arial, Helvetica, sans-serif;
             height: 100vh;
             margin: 0;
-            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
+            overflow: hidden; /* Ensure body doesn't scroll */
         }
         .link-container {
             position: relative;
@@ -33,7 +38,7 @@
         a {
             text-decoration: none;
             color: #aaaaaa;
-            transition: all 0.5s ease-in-out; /* Smooth transition for all properties */
+            transition: all 2s ease-in-out;
             position: absolute;
             font-size: 12px;
             font-weight: bold;
@@ -53,25 +58,19 @@
         .center-text .orange {
             color: #ff6600;
         }
-</style>
-<link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
-<link rel="manifest" href="./images/site.webmanifest">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+    </style>
 </head>
-        
 <body>
     <div class="link-container">
         <div class="center-text">
             <span class="orange">nickcornaglia</span><span>.com</span>
         </div>
         <div class="links">
-            <a href="mailto:nickcornaglia@gmail.com">contact</a>
-            <a href="https://twitter.com/nickcornaglia" target="_blank">twitter x</a>
-            <a href="https://www.instagram.com/nickcornaglia/" target="_blank">instagram</a>
-            <a href="https://github.com/nickcornaglia" target="_blank">github</a>
-            <a href="https://www.qrz.com/db/KN1CKC" target="_blank">kn1ckc</a>
+            <a href="mailto:nickcornaglia@gmail.com" aria-label="Contact via Email">contact</a>
+            <a href="https://twitter.com/nickcornaglia" target="_blank" aria-label="Nick Cornaglia on Twitter">twitter x</a>
+            <a href="https://www.instagram.com/nickcornaglia/" target="_blank" aria-label="Nick Cornaglia on Instagram">instagram</a>
+            <a href="https://github.com/nickcornaglia" target="_blank" aria-label="Nick Cornaglia on GitHub">github</a>
+            <a href="https://www.qrz.com/db/KN1CKC" target="_blank" aria-label="KN1CKC">kn1ckc</a>
         </div>
     </div>
     <script>
@@ -79,17 +78,20 @@
 
         function setInitialPositions() {
             const links = document.querySelectorAll('.links a');
+            const offset = 50; // Offset to prevent links from going off-screen
+
             links.forEach((link, index) => {
-                let randomX = Math.random() * (window.innerWidth * 0.6) + (window.innerWidth * 0.2);
-                let randomY = Math.random() * (window.innerHeight * 0.6) + (window.innerHeight * 0.2);
+                let randomX = Math.random() * (window.innerWidth - offset * 2) + offset;
+                let randomY = Math.random() * (window.innerHeight - offset * 2) + offset;
+
                 for (let i = 0; i < index; i++) {
                     const otherLink = links[i];
                     const dx = randomX - parseFloat(otherLink.style.left || 0);
                     const dy = randomY - parseFloat(otherLink.style.top || 0);
                     const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 100) { // Minimum distance between links
-                        randomX += 100;
-                        randomY += 100;
+                    if (distance < 100) {
+                        randomX = Math.random() * (window.innerWidth - offset * 2) + offset;
+                        randomY = Math.random() * (window.innerHeight - offset * 2) + offset;
                         i = -1; // Restart loop to check against all previous links again
                     }
                 }
@@ -101,40 +103,34 @@
         function moveLinks() {
             if (!isPaused) {
                 const links = document.querySelectorAll('.links a');
-                let allAtDestination = true;
+                const offset = 50; // Offset to prevent links from going off-screen
+
                 links.forEach((link, index) => {
-                    const randomX = Math.random() * (window.innerWidth * 0.6) + (window.innerWidth * 0.2);
-                    const randomY = Math.random() * (window.innerHeight * 0.6) + (window.innerHeight * 0.2);
+                    const randomX = Math.random() * (window.innerWidth - offset * 2) + offset;
+                    const randomY = Math.random() * (window.innerHeight - offset * 2) + offset;
                     let newX = randomX;
                     let newY = randomY;
+
                     for (let i = 0; i < index; i++) {
                         const otherLink = links[i];
                         const dx = newX - parseFloat(otherLink.style.left || 0);
                         const dy = newY - parseFloat(otherLink.style.top || 0);
                         const distance = Math.sqrt(dx * dx + dy * dy);
-                        if (distance < 100) { // Minimum distance between links
-                            newX += 100;
-                            newY += 100;
+                        if (distance < 100) {
+                            newX = Math.random() * (window.innerWidth - offset * 2) + offset;
+                            newY = Math.random() * (window.innerHeight - offset * 2) + offset;
                             i = -1; // Restart loop to check against all previous links again
                         }
-                    }
-                    const currentX = parseFloat(link.style.left || 0);
-                    const currentY = parseFloat(link.style.top || 0);
-                    if (Math.abs(newX - currentX) > 1 || Math.abs(newY - currentY) > 1) {
-                        allAtDestination = false;
                     }
                     link.style.left = newX + 'px';
                     link.style.top = newY + 'px';
                 });
-                if (allAtDestination) {
-                    isPaused = true;
-                }
             }
+            setTimeout(moveLinks, 3000); // Move links every 3 seconds
         }
 
-        setInitialPositions(); // Set initial random positions when the page loads
-
-        setInterval(moveLinks, 2000); // Move links every 2 seconds
+        setInitialPositions();
+        moveLinks(); // Start the movement loop
 
         document.querySelectorAll('.links a').forEach(link => {
             link.addEventListener('mouseenter', () => {
@@ -144,6 +140,8 @@
                 isPaused = false;
             });
         });
+
+        window.addEventListener('resize', setInitialPositions); // Reposition links on window resize
     </script>
 </body>
 </html>
