@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -13,136 +12,97 @@
     <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
     <link rel="manifest" href="./images/site.webmanifest">
     <style>
-        body {
-            background-color: white;
-            font-family: Arial, Helvetica, sans-serif;
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            overflow: hidden; /* Ensure body doesn't scroll */
-        }
-        .link-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-        .links {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        a {
-            text-decoration: none;
-            color: #aaaaaa;
-            transition: all .5s ease-in-out;
-            position: absolute;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        a:hover {
-            color: #ff6600;
-        }
-        .center-text {
-            color: #000000;
-            font-size: 12px;
-            font-weight: bold;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        .center-text .orange {
-            color: #ff6600;
-        }
-    </style>
+  body {
+    background-color: white;
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    font-size: small;
+    font-weight: bold;
+  }
+
+  #site-name {
+    color: #ff6600;
+  }
+
+  #site-name .dot-com {
+    color: #000000;
+  }
+
+  .floating-link {
+    position: absolute;
+    color: #cccccc;
+    font-size: small;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.5s;
+    font-weight: bold;
+  }
+
+  .floating-link:hover {
+    color: #ff6600;
+  }
+</style>
 </head>
 <body>
-    <div class="link-container">
-        <div class="center-text">
-            <span class="orange">nickcornaglia</span><span>.com</span>
-        </div>
-        <div class="links">
-            <a href="mailto:nickcornaglia@gmail.com" aria-label="Contact via Email">contact</a>
-            <a href="https://twitter.com/nickcornaglia" target="_blank" aria-label="Nick Cornaglia on Twitter">twitter</a>
-            <a href="https://www.instagram.com/nickcornaglia/" target="_blank" aria-label="Nick Cornaglia on Instagram">instagram</a>
-            <a href="https://github.com/nickcornaglia" target="_blank" aria-label="Nick Cornaglia on GitHub">github</a>
-            <a href="https://www.qrz.com/db/KN1CKC" target="_blank" aria-label="KN1CKC">kn1ckc</a>
-        </div>
-    </div>
-    <script>
-        let isPaused = false;
 
-        function setInitialPositions() {
-            const links = document.querySelectorAll('.links a');
-            const offset = 50; // Offset to prevent links from going off-screen
+<div id="site-name">
+  nickcornaglia<span class="dot-com">.com</span>
+</div>
+            <a class="floating-link" href="mailto:nickcornaglia@gmail.com" aria-label="Contact via Email">contact</a>
+            <a class="floating-link" href="https://twitter.com/nickcornaglia" target="_blank" aria-label="Nick Cornaglia on Twitter">twitter</a>
+            <a class="floating-link" href="https://www.instagram.com/nickcornaglia/" target="_blank" aria-label="Nick Cornaglia on Instagram">instagram</a>
+            <a class="floating-link" href="https://github.com/nickcornaglia" target="_blank" aria-label="Nick Cornaglia on GitHub">github</a>
+            <a class="floating-link" href="https://www.qrz.com/db/KN1CKC" target="_blank" aria-label="KN1CKC">kn1ckc</a>
+<script>
+  const links = document.querySelectorAll('.floating-link');
+  const speed = 1; // Slow down the movement
+  let directions = [];
+  let movementPaused = [];
 
-            links.forEach((link, index) => {
-                let randomX = Math.random() * (window.innerWidth - offset * 2) + offset;
-                let randomY = Math.random() * (window.innerHeight - offset * 2) + offset;
+  // Initialize positions and directions
+  links.forEach((link, index) => {
+    link.style.top = `${Math.random() * 100}vh`;
+    link.style.left = `${Math.random() * 100}vw`;
+    directions.push({
+      x: Math.random() < 0.5 ? speed : -speed,
+      y: Math.random() < 0.5 ? speed : -speed,
+    });
+    movementPaused.push(false);
 
-                for (let i = 0; i < index; i++) {
-                    const otherLink = links[i];
-                    const dx = randomX - parseFloat(otherLink.style.left || 0);
-                    const dy = randomY - parseFloat(otherLink.style.top || 0);
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 100) {
-                        randomX = Math.random() * (window.innerWidth - offset * 2) + offset;
-                        randomY = Math.random() * (window.innerHeight - offset * 2) + offset;
-                        i = -1; // Restart loop to check against all previous links again
-                    }
-                }
-                link.style.left = randomX + 'px';
-                link.style.top = randomY + 'px';
-            });
+    // Add event listeners for pausing and resuming movement
+    link.addEventListener('mouseover', () => {
+      movementPaused[index] = true;
+    });
+    link.addEventListener('mouseout', () => {
+      movementPaused[index] = false;
+    });
+  });
+
+  // Function to move the links
+  function moveLinks() {
+    links.forEach((link, index) => {
+      if (!movementPaused[index]) {
+        let rect = link.getBoundingClientRect();
+        if (rect.top <= 0 || rect.bottom >= window.innerHeight) {
+          directions[index].y = -directions[index].y;
         }
-
-        function moveLinks() {
-            if (!isPaused) {
-                const links = document.querySelectorAll('.links a');
-                const offset = 50; // Offset to prevent links from going off-screen
-
-                links.forEach((link, index) => {
-                    const randomX = Math.random() * (window.innerWidth - offset * 2) + offset;
-                    const randomY = Math.random() * (window.innerHeight - offset * 2) + offset;
-                    let newX = randomX;
-                    let newY = randomY;
-
-                    for (let i = 0; i < index; i++) {
-                        const otherLink = links[i];
-                        const dx = newX - parseFloat(otherLink.style.left || 0);
-                        const dy = newY - parseFloat(otherLink.style.top || 0);
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-                        if (distance < 100) {
-                            newX = Math.random() * (window.innerWidth - offset * 2) + offset;
-                            newY = Math.random() * (window.innerHeight - offset * 2) + offset;
-                            i = -1; // Restart loop to check against all previous links again
-                        }
-                    }
-                    link.style.left = newX + 'px';
-                    link.style.top = newY + 'px';
-                });
-            }
-            setTimeout(moveLinks, 3000); // Move links every 3 seconds
+        if (rect.left <= 0 || rect.right >= window.innerWidth) {
+          directions[index].x = -directions[index].x;
         }
+        link.style.top = `${link.offsetTop + directions[index].y}px`;
+        link.style.left = `${link.offsetLeft + directions[index].x}px`;
+      }
+    });
+    requestAnimationFrame(moveLinks);
+  }
 
-        setInitialPositions();
-        moveLinks(); // Start the movement loop
+  moveLinks();
+</script>
 
-        document.querySelectorAll('.links a').forEach(link => {
-            link.addEventListener('mouseenter', () => {
-                isPaused = true;
-            });
-            link.addEventListener('mouseleave', () => {
-                isPaused = false;
-            });
-        });
-
-        window.addEventListener('resize', setInitialPositions); // Reposition links on window resize
-    </script>
 </body>
 </html>
