@@ -35,7 +35,7 @@
 
   .floating-link {
     position: absolute;
-    color: #cccccc;
+    color: #ff6600;
     font-size: small;
     text-decoration: none;
     white-space: nowrap;
@@ -44,8 +44,16 @@
   }
 
   .floating-link:hover {
-    color: #ff6600;
+    color: #000000;
   }
+
+.dot {
+        position: absolute;
+        background-color: #cccccc;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+    }
 </style>
 </head>
 <body>
@@ -102,6 +110,59 @@
   }
 
   moveLinks();
+</script>
+<script>
+    const dots = [];
+    const maxSpeed = 1; // Maximum speed of the dots
+
+    function createDot() {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        dot.style.left = Math.random() * window.innerWidth + 'px';
+        dot.style.top = Math.random() * window.innerHeight + 'px';
+        document.body.appendChild(dot);
+        dots.push({
+            element: dot,
+            vx: Math.random() * maxSpeed * 2 - maxSpeed, // Random velocity in x-direction
+            vy: Math.random() * maxSpeed * 2 - maxSpeed // Random velocity in y-direction
+        });
+    }
+
+    function moveDots() {
+        dots.forEach(dot => {
+            let left = parseFloat(dot.element.style.left);
+            let top = parseFloat(dot.element.style.top);
+
+            // Update dot position
+            left += dot.vx;
+            top += dot.vy;
+
+            // Check boundary collision
+            if (left < 0 || left > window.innerWidth - 10) {
+                dot.vx = -dot.vx; // Reverse velocity on collision
+            }
+            if (top < 0 || top > window.innerHeight - 10) {
+                dot.vy = -dot.vy; // Reverse velocity on collision
+            }
+
+            // Update dot's position
+            dot.element.style.left = left + 'px';
+            dot.element.style.top = top + 'px';
+        });
+
+        requestAnimationFrame(moveDots); // Repeat the animation
+    }
+
+    function createDots() {
+        for (let i = 0; i < 50; i++) {
+            createDot();
+        }
+    }
+
+    window.onload = function() {
+        createDots();
+        moveDots(); // Start animation
+    };
 </script>
 
 </body>
