@@ -1,0 +1,142 @@
+<style>
+    :root {
+        --primary-text: #333333; /* Dark Gray for Body Text */
+        --accent-color: #007ACC; /* Vibrant Blue for Titles/Accents */
+        --light-gray: #f4f4f4;  /* Light background for skills/details */
+        --header-text: #000000; /* Black for Name */
+        --font-family: 'Arial', sans-serif;
+    }
+
+    body {
+        font-family: var(--font-family);
+        line-height: 1.6;
+        color: var(--primary-text);
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+    }
+
+    /* Header Section */
+    .header {
+        text-align: center;
+        padding-bottom: 15px;
+        border-bottom: 3px solid var(--accent-color);
+        margin-bottom: 20px;
+    }
+
+    .header h1 {
+        color: var(--header-text);
+        margin: 0 0 5px 0;
+        font-size: 2.5em;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .header h2 {
+        color: var(--accent-color);
+        margin: 0 0 10px 0;
+        font-size: 1.1em;
+        font-weight: 400;
+    }
+
+    .contact-info {
+        font-size: 0.9em;
+        color: var(--primary-text);
+    }
+
+    .contact-info a {
+        color: var(--primary-text);
+        text-decoration: none;
+    }
+
+    /* Section Titles */
+    h3 {
+        color: var(--accent-color);
+        border-bottom: 2px solid var(--light-gray);
+        padding-bottom: 5px;
+        margin-top: 25px;
+        font-size: 1.3em;
+        text-transform: uppercase;
+    }
+
+    /* Core Competencies Table */
+    .competencies table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    .competencies th {
+        color: var(--accent-color);
+        text-align: left;
+        padding-bottom: 5px;
+        font-size: 1em;
+        text-transform: uppercase;
+    }
+
+    .competencies td {
+        vertical-align: top;
+        padding: 5px 0;
+        font-size: 0.95em;
+        width: 33%; /* Equal column width */
+    }
+
+    /* Experience Section */
+    .experience-item {
+        margin-bottom: 15px;
+    }
+
+    .job-title {
+        color: var(--accent-color);
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+
+    .company-name {
+        font-weight: bold;
+        color: var(--primary-text);
+        margin-top: 0;
+        display: block;
+    }
+
+    .dates {
+        font-style: italic;
+        font-size: 0.9em;
+        color: #666;
+    }
+
+    .details ul {
+        list-style-type: disc;
+        padding-left: 20px;
+        margin-top: 5px;
+    }
+
+    .details li {
+        margin-bottom: 5px;
+        font-size: 0.95em;
+    }
+
+    /* Skills List */
+    .skills-list strong {
+        color: var(--accent-color);
+    }
+    
+    .skills-list ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .skills-list li {
+        background-color: var(--light-gray);
+        color: var(--primary-text);
+        padding: 4px 10px;
+        margin: 4px 8px 4px 0;
+        border-radius: 4px;
+        font-size: 0.9em;
+    }
+
+</style>
